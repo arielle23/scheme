@@ -1,0 +1,12 @@
+(define (double n)
+  (+ n n))
+(define (halve n)
+  (/ n 2))
+(define (multiply a b)
+  (cond ((even? b)
+         (double (multiply a (/ b 2))))
+        ((= b 1)
+         a)
+        (else
+         (+ a (multiply a (- b 1))))))
+(multiply 7 8)

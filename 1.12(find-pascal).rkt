@@ -1,0 +1,6 @@
+(define (find-pascal layer num)
+  (cond ((or (= num 1) (= num layer))
+         1)
+        (else (+ (find-pascal (- layer 1) (- num 1))
+                  (find-pascal (- layer 1) num)))))
+(find-pascal 100 5)
