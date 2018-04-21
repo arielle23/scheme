@@ -16,6 +16,6 @@
         (square-root (improve guess) x)))
   (square-root 1. x))
 
-(sqrot 81)
+(sqrot 100)
 
 
