@@ -9,4 +9,4 @@
 (define (square n)
   (* n n))
 
-(power 2 8)
+(power 2 10)
