@@ -1,0 +1,20 @@
+(define (simpson-integratral f a b n)
+    (define (simpson-iter counter sum)
+        (define (re-arg counter)
+            (cond ((or (= counter 0) (= counter n))
+                        1)
+                    ((even? counter)
+                        2)
+                    (else 4)))
+        (define h
+            (/ (- b a) n))
+        (if (> counter n)
+            (/ (* h sum) 3)
+            (simpson-iter (+ counter 1) 
+                (+ sum (* (re-arg counter) (f (+ (* counter h) a)))))))
+    (simpson-iter 0 0))
+
+(define (cube n)
+    (* n n n))
+    
+(simpson-integratral cube 0 2.0 1000)
