@@ -1,0 +1,7 @@
+#lang sicp
+(define (double-f g)
+  (lambda (x)
+    (g (g x))))
+(define (inc x)
+  (+ x 1))
+((double-f inc) 1)

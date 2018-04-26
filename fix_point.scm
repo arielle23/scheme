@@ -1,5 +1,5 @@
 #lang sicp
-(define precision 0.01)
+(define precision 0.00001)
 
 (define (fix_point f first-guess)
   (define (absolute x)
@@ -10,14 +10,13 @@
     (< (absolute (- a b)) precision))
   (define (try guess)
     (let ((next (f guess)))
-      (if (close-enough? guess next)
+      (display guess)
+       (newline)
+       (if (close-enough? guess next)
           next
           (try next))))
   (try first-guess))
 
-(define (function x)
-  (- (* x 3) 1))
-
-(fix_point function 0)
+(fix_point (lambda (x) (/ (log 1000) (log x))) 2.0)
 
 
