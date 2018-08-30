@@ -1,0 +1,10 @@
+(define (fringe items)
+    (fringe_iter items `()))
+(define (fringe_iter items result)
+    (cond ((null? items) result)
+          ((pair? (car items))
+            (fringe_iter (cdr items) (append result (fringe (car items)))))
+          (else
+            (fringe_iter (cdr items) (append result (list (car items)))))))
+(define x (list (list 1 2) (list 3 4)))
+(fringe (list x x))
