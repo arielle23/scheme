@@ -36,4 +36,3 @@
                       cols))
               m)))
 (matrix_*_matrix m n)
-
