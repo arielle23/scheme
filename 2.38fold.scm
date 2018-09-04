@@ -1,0 +1,17 @@
+(define (accumulate op init sequence)
+    (if (null? sequence)
+        init
+        (op (car sequence)
+            (accumulate op init (cdr sequence)))))
+(define fold_right accumulate)
+(fold_right / 1 (list 1 2 3))
+(define (fold_left op init sequence)
+    (define (iter result rest)
+        (if (null? rest)
+            result
+            (iter (op result (car rest))
+                  (cdr rest))))
+    (iter init sequence))
+(fold_left / 1 (list 1 2 3))
+(fold_right list `() (list 1 2 3))
+(fold_left list `() (list 1 2 3))

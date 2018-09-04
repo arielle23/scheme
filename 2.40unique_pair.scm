@@ -1,0 +1,42 @@
+(define (find-smallest-divisor n test-divisor)
+  (if (= (remainder n test-divisor) 0)
+      test-divisor
+      (find-smallest-divisor n (+ test-divisor 1))))
+
+(define (smallest-divisor n)
+  (find-smallest-divisor n 2))
+
+(define (prime? n)
+  (= (smallest-divisor n) n))
+
+(define (accumulate op init sequence)
+    (if (null? sequence)
+        init
+        (op (car sequence)
+            (accumulate op init (cdr sequence)))))
+(define (fliter prediction sequence)
+    (if (null? sequence)
+        `()
+        (if (prediction (car sequence))
+            (cons (car sequence)
+                  (fliter prediction (cdr sequence)))
+            (fliter prediction (cdr sequence)))))
+(define (enumerate_interval low high)
+    (if (> low high)
+        `()
+        (cons low (enumerate_interval (+ low 1) high))))
+(define (make_pair_sum pair)
+    (list (car pair) (cadr pair) (+ (car pair) (cadr pair))))
+(define (unique_pair n)
+    (accumulate append `() (map (lambda (i)
+                                        (map (lambda (j) (list i j))
+                                             (enumerate_interval 1 (- i 1))))
+                                (enumerate_interval 1 n))))
+(define (prime_sum? pair)
+    (prime? (+ (car pair) (cadr pair))))
+(define (prime_sum_pairs n)
+    (map make_pair_sum
+        (fliter prime_sum?
+                (unique_pair n))))
+(prime_sum_pairs 6)
+(unique_pair 6)
