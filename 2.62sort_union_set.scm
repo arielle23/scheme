@@ -1,0 +1,10 @@
+(define (union_set set1 set2)
+    (cond ((null? set1) set2)
+          ((null? set2) set1)
+          ((< (car set1) (car set2))
+            (cons (car set1) (union_set (cdr set1) set2)))
+          ((< (car set2) (car set1))
+            (cons (car set2) (union_set set1 (cdr set2))))
+          (else
+            (cons (car set1) (union_set (cdr set1) (cdr set2))))))
+(union_set (list 1 2 3 6 7 9) (list 3 4 5 8 10))

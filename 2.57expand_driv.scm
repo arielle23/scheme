@@ -23,11 +23,21 @@
           ((=number? y 0) x)
           ((and (number? x) (number? y)) (+ x y))
           (else
-            (list `+ x y))))
+            (if (sum? y)
+                (append (list `+ x) (cdr y))
+                (list `+ x y)))))
+(make_sum `(* 3 4) `(+ (* 3 4) (* 4 5)))
 (define (augend x)
-    (caddr x))
+    (if (> (length (cddr x)) 1)
+        (append `(+) (cddr x))
+        (caddr x)))
 (define (addend x)
     (cadr x))
+(define (length x)
+    (if (null? x)
+        0
+        (+ 1 (length (cdr x)))))
+(augend `(+ (* 7 8) (+ 6 7) (+ 3 4) (* 3 4)))
 
 (define (product? x)
     (and (pair? x) (eq? (car x) `*)))
@@ -37,9 +47,20 @@
           ((=number? y 1) x)
           ((and (number? x) (number? y)) (* x y))
           (else
-            (list `* x y))))
+            (if (product? x)
+                (append x (if (product? y)
+                              (cdr y)
+                              (list y)))
+                (append `(* x) (if (product? y)
+                                   (cdr y)
+                                   (list y)))))))
+(make_product `(* 4 3) `(+ 3 4))
 (define (multipliand x)
-    (caddr x))
+    (if (> (length (cddr x)) 1)
+        (append `(*) (cddr x))
+        (caddr x)))
+(multipliand `(* x y (+ 3 x)))
+
 (define (multiplier x)
     (cadr x))
 
@@ -66,4 +87,5 @@
                 (deriv (base exp) var)))
           (else
             (error "unknown expression type" exp))))
+(deriv `(* x y (+ x 3)) `x)
 
