@@ -28,4 +28,4 @@
                                     (make_code_tree (make_leaf `D 1)
                                                     (make_leaf `C 1)))))
 (define sample_message `(0 1 1 0 0 1 0 1 0 1 1 1 0))
-(encode `(a d a e b b c a) sample_tree)
+(encode `(a d a b b c a) sample_tree)

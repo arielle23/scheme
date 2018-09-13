@@ -1,0 +1,16 @@
+
+(define (parenthes n)
+    (parenthes_iter n 1 0 `(a)))
+(define (parenthes_iter n left right cur)
+    (if (not (= (length cur) (* 2 n)))
+        (if (> left n)
+            `()
+            (if (> right left)
+                `()
+                (append (parenthes_iter n (+ left 1) right (append cur `(a)))
+                        (parenthes_iter n left (+ right 1) (append cur `(b))))))
+        (if (or (> left n) (> right left))
+            `()
+            (list cur))))
+
+(parenthes 4)
