@@ -1,0 +1,5 @@
+ (define (make_accumulator amount)
+    (lambda (value)
+        (begin (set! amount (+ amount value)) amount)))
+(define A (make_accumulator 5))
+(A 10)
