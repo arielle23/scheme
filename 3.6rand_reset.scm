@@ -1,0 +1,21 @@
+(define random_init 50)
+(define (rand_update x)
+    (modulo (+ (* x 1103515245) 12345) 32768))
+(define rand
+    (let ((x random_init))
+        (lambda (op)
+            (cond ((eq? op `generate)
+                    (begin (set! x (rand_update x)) x))
+                  ((eq? op `reset)
+                    (lambda (new_random_init)
+                        (begin (set! x new_random_init)
+                            x)))
+                  (else
+                    (error "unknown request -- random" op))))))
+
+(define getrand rand)
+(getrand `generate)
+(getrand `generate)
+((getrand `reset) 14)
+(getrand `generate)
+(getrand `generate)
