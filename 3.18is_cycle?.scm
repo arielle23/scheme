@@ -1,0 +1,15 @@
+(define (last_pair x)
+    (if (null? (cdr x))
+        x
+        (last_pair (cdr x))))
+(define (is_cycle? x)
+    (define (iter_is_cycle? record x)
+        (if (null? (cdr x))
+            false
+            (if (false? (memq x record))
+                (iter_is_cycle? (cons x record) (cdr x))
+                true)))
+    (iter_is_cycle? `() x))
+(define x (list `a `b `c))
+ (set-cdr! (last_pair x) x) 
+(is_cycle? x)
